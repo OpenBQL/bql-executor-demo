@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "serve": "pm2 start npm --name 'bql_executor_demo' -- run start -- -p 3011"
   },
   "dependencies": {
     "@ebay/nice-modal-react": "^1.2.13",

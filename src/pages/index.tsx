@@ -45,6 +45,7 @@ export default function Home() {
   const [actionNetwork, setActionNetwork] = useState("");
   const [executor, setExecutor] = useState<Executor>(null);
   const [items, setItems] = useState([]);
+  const [formValues, setFormValues] = useState(null);
 
   useEffect(() => {
     if (value) {
@@ -67,23 +68,25 @@ export default function Home() {
     editor.setPosition(startPosition);
   };
 
+  const saveFun = () => {
+    if (codeObj.params && Array.isArray(codeObj.params)) {
+      setItems(codeObj.params);
+    }
+  };
+
   const runFun = async () => {
-    // if (codeObj.params && Array.isArray(codeObj.params)) {
-    //   setItems(codeObj.params);
-    // } else {
-    //   runExecutor();
-    // }
-    const executor = new Executor(
-      value,
-      abiOrIdl || {},
-      setActionNetwork,
-      setLogs,
-      solanaRPC
-    );
-    setExecutor(executor);
-    setStatus("pause");
-    setLoading(true);
     try {
+      const executor = new Executor(
+        value,
+        abiOrIdl || {},
+        setActionNetwork,
+        solanaRPC,
+        formValues,
+        setLogs
+      );
+      setExecutor(executor);
+      setStatus("pause");
+      setLoading(true);
       await executor.run(provider, account);
       setUpdate((state) => !state);
     } catch (error) {
@@ -91,26 +94,7 @@ export default function Home() {
       setStatus("run");
     }
   };
-  const runExecutor = async (params?: any) => {
-    const executor = new Executor(
-      value,
-      abiOrIdl || {},
-      setActionNetwork,
-      setLogs,
-      solanaRPC
-    );
-    setExecutor(executor);
-    setStatus("pause");
-    setLoading(true);
-    try {
-      await executor.run(provider, account);
-      console.log("fffff");
-      setUpdate((state) => !state);
-    } catch (error) {
-      setLoading(false);
-      setStatus("run");
-    }
-  };
+
   const pauseFun = useCallback(() => {
     setStatus("resume");
     executor.pause();
@@ -148,7 +132,6 @@ export default function Home() {
       setJsonError(error.message);
     }
   };
-  console.log(abiOrIdl);
 
   useEffect(() => {
     if (executor?.currentStep >= executor?.executeList?.length - 1) {
@@ -214,9 +197,9 @@ export default function Home() {
           <Typography sx={{ color: "common.brown", fontSize: 15, mt: 8 }}>
             {abiOrIdl ? jsonError : ""}
           </Typography>
-          {/* {!!items.length && (
-            <ParamsForm items={items} runExecutor={runExecutor} />
-          )} */}
+          {!!items.length && (
+            <ParamsForm items={items} setFormValues={setFormValues} />
+          )}
         </Box>
         <Stack
           sx={{
@@ -292,7 +275,9 @@ export default function Home() {
                 position: "relative",
               }}
             >
-              <Button variant="outlined">Save</Button>
+              <Button variant="outlined" onClick={saveFun}>
+                Save
+              </Button>
               <LoadingButton
                 disabled={!codeObj || !!syntaxError || !account}
                 variant="contained"

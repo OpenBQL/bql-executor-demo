@@ -1,9 +1,11 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import FormItem from "@/components/common/FormItem";
 
-const ParamsForm = ({ items, runExecutor }) => {
+const ParamsForm = ({ items, setFormValues }) => {
+  const [errorMessage, setErrorMessage] = useState("");
+
   const initialValues = useMemo(() => {
     const result = {};
     items.forEach((item) => {
@@ -16,7 +18,7 @@ const ParamsForm = ({ items, runExecutor }) => {
     const errors: any = {};
 
     for (const obj of items) {
-      if (!values[obj.name]) {
+      if (obj.required && !values[obj.name]) {
         errors[obj.name] = `${obj.name} is required!`;
       }
     }
@@ -24,7 +26,17 @@ const ParamsForm = ({ items, runExecutor }) => {
   };
 
   const handleSubmit = (values) => {
-    console.log(values);
+    try {
+      for (const item of items) {
+        if (item.type === "object" || item.type === "array") {
+          values[item.name] = JSON.parse(values[item.name]);
+        }
+      }
+      setFormValues(values);
+      setErrorMessage("");
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
   };
 
   return (
@@ -44,9 +56,9 @@ const ParamsForm = ({ items, runExecutor }) => {
                   key={index}
                   name={item.name}
                   label={item.description}
-                  sign
+                  sign={item.required ? true : false}
                 >
-                  <TextField />
+                  <TextField placeholder={item.type} />
                 </FormItem>
               ))}
 
@@ -62,6 +74,9 @@ const ParamsForm = ({ items, runExecutor }) => {
           )}
         </Formik>
       </Box>
+      <Typography sx={{ fontSize: 15, color: "common.brown", mt: 10 }}>
+        {errorMessage}
+      </Typography>
     </>
   );
 };

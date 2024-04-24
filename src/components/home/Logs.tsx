@@ -38,21 +38,25 @@ const Logs: React.FC<ILogsProps> = ({ syntaxError, logs }) => {
                 component="span"
                 sx={{
                   color:
-                    type === "error" ? "var(--so-brown)" : "var(--so-text)",
+                    type === "error" || type === "params"
+                      ? "var(--so-brown)"
+                      : "var(--so-text)",
                 }}
               >
-                {type === "error" ? "ERROR" : "INFO"}
+                {type === "error" || type === "params" ? "ERROR" : "INFO"}
               </Box>{" "}
               {"| "}
               <Box
                 component="span"
                 sx={{
                   color:
-                    type === "error" ? "var(--so-brown)" : "var(--so-text)",
+                    type === "error" || type === "params"
+                      ? "var(--so-brown)"
+                      : "var(--so-text)",
                 }}
               >
-                {type === "start" || type === "end"
-                  ? `${message} run_id: ${runId}, address: ${account}`
+                {type === "start" || type === "end" || type === "params"
+                  ? `${message}, run_id: ${runId}, address: ${account}`
                   : `Run workflow action ${
                       type === "action" ? "success" : "failed"
                     }, run_id: ${runId}, address: ${account}\n${message}  `}

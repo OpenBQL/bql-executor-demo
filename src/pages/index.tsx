@@ -8,6 +8,7 @@ import {
   Typography,
   IconButton,
   Input,
+  Button,
 } from "@mui/material";
 import BlockIcon from "@mui/icons-material/Block";
 import yaml from "js-yaml";
@@ -23,6 +24,7 @@ import Logs from "@/components/home/Logs";
 import { blockchain, wrapBlockchain } from "@/config/blockchain";
 import ChainNetworkDialog from "@/components/common/chainNetworkDialog";
 import ConnectNetworkDialog from "@/components/common/connectWalletDialog";
+import ParamsForm from "@/components/home/ParamsForm";
 
 export default function Home() {
   const { account, provider, chainId } = useSelector(
@@ -42,6 +44,7 @@ export default function Home() {
   const [jsonError, setJsonError] = useState("");
   const [actionNetwork, setActionNetwork] = useState("");
   const [executor, setExecutor] = useState<Executor>(null);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     if (value) {
@@ -65,6 +68,30 @@ export default function Home() {
   };
 
   const runFun = async () => {
+    // if (codeObj.params && Array.isArray(codeObj.params)) {
+    //   setItems(codeObj.params);
+    // } else {
+    //   runExecutor();
+    // }
+    const executor = new Executor(
+      value,
+      abiOrIdl || {},
+      setActionNetwork,
+      setLogs,
+      solanaRPC
+    );
+    setExecutor(executor);
+    setStatus("pause");
+    setLoading(true);
+    try {
+      await executor.run(provider, account);
+      setUpdate((state) => !state);
+    } catch (error) {
+      setLoading(false);
+      setStatus("run");
+    }
+  };
+  const runExecutor = async (params?: any) => {
     const executor = new Executor(
       value,
       abiOrIdl || {},
@@ -80,7 +107,6 @@ export default function Home() {
       console.log("fffff");
       setUpdate((state) => !state);
     } catch (error) {
-      console.error(error);
       setLoading(false);
       setStatus("run");
     }
@@ -117,10 +143,12 @@ export default function Home() {
     try {
       const valueObj = JSON.parse(value);
       setAbiOrIdl(valueObj);
+      setJsonError(null);
     } catch (error) {
       setJsonError(error.message);
     }
   };
+  console.log(abiOrIdl);
 
   useEffect(() => {
     if (executor?.currentStep >= executor?.executeList?.length - 1) {
@@ -175,11 +203,20 @@ export default function Home() {
             flexShrink: 0,
           }}
         >
-          <Typography sx={{ mb: 10 }}>ABI/IDL</Typography>
-          <Input multiline fullWidth rows={8} onChange={areaChange} />
+          <Typography sx={{ mb: 10 }}>ABI/IDL JSON</Typography>
+          <Input
+            multiline
+            fullWidth
+            rows={8}
+            onChange={areaChange}
+            placeholder={`{"contract_address": abi[]/idl{}}`}
+          />
           <Typography sx={{ color: "common.brown", fontSize: 15, mt: 8 }}>
             {abiOrIdl ? jsonError : ""}
           </Typography>
+          {/* {!!items.length && (
+            <ParamsForm items={items} runExecutor={runExecutor} />
+          )} */}
         </Box>
         <Stack
           sx={{
@@ -255,8 +292,8 @@ export default function Home() {
                 position: "relative",
               }}
             >
+              <Button variant="outlined">Save</Button>
               <LoadingButton
-                // loading={loading}
                 disabled={!codeObj || !!syntaxError || !account}
                 variant="contained"
                 color="warning"

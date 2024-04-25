@@ -3854,10 +3854,10 @@ tapable@^2.2.0:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.2.1.tgz#1967a73ef4060a82f12ab96af86d52fdb76eeca0"
   integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
 
-test-ya@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/test-ya/-/test-ya-1.0.6.tgz#33d9934c040b3a35b7e44a7ce09491014d322ffe"
-  integrity sha512-9s1WuOoBArAsrfqqOBS1k95v//oeHImAGF9BLqYyU9uFZN+Tzx19VrEf2YAztLNsAmJ+nAfHmXj2BPcrqVZXVA==
+test-ya@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/test-ya/-/test-ya-1.0.7.tgz#9771a5a6c7ec30bbc72bf30c8fb0fbc0a15d3811"
+  integrity sha512-LKX9G6+ULTyjc5s+VFQoChXG6MjdSyyfMNi+oSVwHsW3F6VvjPEC8OvKHpLRvGQJppVgGS/+KW78YdqmOf768A==
   dependencies:
     "@project-serum/anchor" "^0.26.0"
     "@solana/spl-token" "^0.4.3"

@@ -1,10 +1,5 @@
-import getConfig from "next/config";
 import { connectMetaMask, initMetaMask, toggleChainMetaMask } from "./metamask";
 import { connectSolana, initSolana } from "./solana";
-
-export const {
-  NODE_ENV_API = "dev",
-}: { NODE_ENV_API: "dev" | "test" | "pro" } = getConfig().publicRuntimeConfig;
 
 export const walletsName = {
   metamask: "MetaMask",

@@ -3854,10 +3854,10 @@ tapable@^2.2.0:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.2.1.tgz#1967a73ef4060a82f12ab96af86d52fdb76eeca0"
   integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
 
-test-ya@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/test-ya/-/test-ya-1.0.8.tgz#afe1659b1a3ec507fc241ed6d2823d061cbf5208"
-  integrity sha512-Et6QoqCp4oerJwXR21qnAZm7bsci38UW9Ct83Q3RHaBdXtVtt6LKmy9GhKreJcQUSrZ/hQtp92OdY9d/PTwK4Q==
+test-ya@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/test-ya/-/test-ya-1.0.9.tgz#b63c61b670e9177e362285839a8f98709407cd30"
+  integrity sha512-pVNnHB30IbzY9Ha6mru2dERgqufJfGG2y4KEfY5YUPnGIGtQWJLWKgg+rCG/0Xw7AhTMah1axqdNh4jbWEcp3w==
   dependencies:
     "@project-serum/anchor" "^0.26.0"
     "@solana/spl-token" "^0.4.3"
@@ -4145,9 +4145,9 @@ ws@^7.4.5:
   integrity sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==
 
 ws@^8.5.0:
-  version "8.16.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.16.0.tgz#d1cd774f36fbc07165066a60e40323eab6446fd4"
-  integrity sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==
+  version "8.17.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.17.0.tgz#d145d18eca2ed25aaf791a183903f7be5e295fea"
+  integrity sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==
 
 xtend@~2.1.1:
   version "2.1.2"
